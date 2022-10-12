@@ -49,7 +49,7 @@ public sealed class PawnController : NetworkBehaviour
 
 	[Header("Cinemachine")]
 	[Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
-	public GameObject CinemachineCameraTarget;
+	public Transform CinemachineCameraTarget;
 	public GameObject PlayerFollowCamera;
 	[Tooltip("How far in degrees can you move the camera up")]
 	public float TopClamp = 90.0f;
@@ -141,12 +141,12 @@ public sealed class PawnController : NetworkBehaviour
 	{
 		if (IsOwner && !cameraTargetInitialized)
 		{
-			CinemachineCameraTarget = GameObject.Find("CinemachineCameraTarget");
+			CinemachineCameraTarget = transform.Find("CinemachineCameraTarget");
 			PlayerFollowCamera = GameObject.Find("PlayerFollowCamera");
 
 			var vCam = PlayerFollowCamera.GetComponent<CinemachineVirtualCamera>();
-			vCam.LookAt = CinemachineCameraTarget.transform;
-			vCam.Follow = CinemachineCameraTarget.transform;
+			vCam.LookAt = CinemachineCameraTarget;
+			vCam.Follow = CinemachineCameraTarget;
 			cameraTargetInitialized = true;
 		}
 

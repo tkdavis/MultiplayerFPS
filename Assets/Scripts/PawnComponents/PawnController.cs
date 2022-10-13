@@ -124,6 +124,11 @@ public sealed class PawnController : NetworkBehaviour
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
+		if (!IsOwner)
+		{
+			gameObject.GetComponent<PawnController>().enabled = false;
+			gameObject.GetComponent<PlayerInput>().enabled = false;
+		}
 
 		// _mainCamera.GetComponent<Camera>().enabled = IsOwner;
 		// _mainCamera.GetComponent<AudioListener>().enabled = IsOwner;
@@ -153,8 +158,6 @@ public sealed class PawnController : NetworkBehaviour
 		if (cameraTargetInitialized)
 		{
 			CameraRotation();
-		} else {
-			Debug.LogWarning("CinemachineCameraTarget not initialized yet.");
 		}
 	}
 

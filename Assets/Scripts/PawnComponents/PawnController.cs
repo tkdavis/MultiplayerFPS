@@ -292,6 +292,22 @@ public sealed class PawnController : NetworkBehaviour
 		return Mathf.Clamp(lfAngle, lfMin, lfMax);
 	}
 
+	public void TakeDamage(float amount)
+	{
+		health -= amount;
+		if (health <= 0f)
+		{
+			Die();
+		}
+		Debug.Log(health);
+	}
+
+	private void Die()
+	{
+		Debug.Log("Player died");
+		Destroy(gameObject);
+	}
+
 	private void OnDrawGizmosSelected()
 	{
 		Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);

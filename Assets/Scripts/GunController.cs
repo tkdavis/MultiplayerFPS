@@ -7,10 +7,12 @@ public class GunController : MonoBehaviour
     public float damage = 10.0f;
     public float range = 100.0f;
     public GameObject mainCam;
+    public ParticleSystem muzzleFlash;
 
     void Start()
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera");
+        muzzleFlash = GameObject.Find("MuzzleFlash").GetComponent<ParticleSystem>();
     }
 
     void Update()
@@ -34,5 +36,8 @@ public class GunController : MonoBehaviour
                 pawn.TakeDamage(damage);
             }
         }
+
+        muzzleFlash.Stop();
+        muzzleFlash.Play();
     }
 }

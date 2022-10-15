@@ -6,7 +6,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using Cinemachine;
 
-	[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(CharacterController))]
 
 
 public sealed class PawnController : NetworkBehaviour
@@ -71,7 +71,7 @@ public sealed class PawnController : NetworkBehaviour
 	private float _fallTimeoutDelta;
 
 
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
+#if ENABLE_INPUT_SYSTEM
 	private PlayerInput _playerInput;
 #endif
 	private CharacterController _controller;
@@ -84,7 +84,7 @@ public sealed class PawnController : NetworkBehaviour
 	{
 		get
 		{
-			#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
+			#if ENABLE_INPUT_SYSTEM
 			return _playerInput.currentControlScheme == "KeyboardMouse";
 			#else
 			return false;
@@ -105,11 +105,7 @@ public sealed class PawnController : NetworkBehaviour
 	{
 		_controller = GetComponent<CharacterController>();
 		_input = GetComponent<StarterAssetsInputs>();
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		_playerInput = GetComponent<PlayerInput>();
-#else
-		Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
-#endif
 
 		// reset our timeouts on start
 		_jumpTimeoutDelta = JumpTimeout;
@@ -299,12 +295,10 @@ public sealed class PawnController : NetworkBehaviour
 		{
 			Die();
 		}
-		Debug.Log(health);
 	}
 
 	private void Die()
 	{
-		Debug.Log("Player died");
 		Destroy(gameObject);
 	}
 
